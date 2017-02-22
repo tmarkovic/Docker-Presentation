@@ -1,0 +1,110 @@
+<!doctype html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+	<title>reveal.js</title>
+
+	<link rel="stylesheet" href="css/reveal.css">
+	<link rel="stylesheet" href="css/theme/white.css">
+
+	<!-- Theme used for syntax highlighting of code -->
+	<link rel="stylesheet" href="lib/css/zenburn.css">
+
+	<!-- Printing and PDF exports -->
+	<script>
+		var link = document.createElement('link');
+		link.rel = 'stylesheet';
+		link.type = 'text/css';
+		link.href = window.location.search.match(/print-pdf/gi) ? 'css/print/pdf.css' : 'css/print/paper.css';
+		document.getElementsByTagName('head')[0].appendChild(link);
+	</script>
+</head>
+
+<body>
+	<div class="reveal">
+		<div class="slides">
+			<section>
+				<img src="./img/2291324_orig.gif" width="320" height="240" />
+				<br> PayEx och Valen
+			</section>
+			<section>
+				<h5>Vad är docker?</h5>
+				<ul>
+					<li>
+						Docker är en öppen platform för att utveckla, distribuera och exekvera applikationer.
+					</li>
+					<li>
+						Med hjälp av docker kan vi packetera applikationer och dess beroenden i ett inkappslat och isolerat format
+					</li>
+				</ul>
+			</section>
+			<section data-background-image="./img/9GyZXDQ.gif">
+				<h3 style="color:aliceblue;">Glasklart?</h3>
+			</section>
+			<section>
+				<h5>Vad är docker inte?</h5>
+			</section>
+			<section>
+				<h5>Docker != VMs</h5>
+				<img src="./img/dockernovm.png" width="800" style="border:none;" />
+			</section>
+			<section>
+				<h5>Docker != Skivat bröd</h5>
+				<img src="./img/slicedbread.jpg" class="" width="600" style="border:none;" />
+			</section>
+			<section>
+				<h5>Docker != Skivat bröd</h5>
+				<ul>
+					<li>Samma logistiska utmaningar</li>
+					<li>Docker är inte per automatik microservices</li>
+					<li>Kräver i vissa fall mer förståelse för drift</li>
+					<li>Passar inte alla typer av applikationer</li>
+					<li>Inte alltid lätt</li>
+				</ul>
+			</section>
+			<section data-background-image="./img/vfKwHEB.gif">
+				<h3 style="color:aliceblue;">The good news!</h3>
+			</section>
+			<section>
+				<h5>Varför docker?</h5>
+				<ul>
+					<li class="fragment shrink">Köra godtycklig kod i egna fullt isolerade kontainrar, plattformsagnostiskt-ish</li>
+					<li class="fragment shrink">Kontainrar är lättviktiga, flyktiga och snabbt startade</li>
+					<li class="fragment shrink">Skalbar, multidimensionell drifthockey(?)</li>
+					<li class="fragment shrink">Dra nytta av ett ständigt växande ekosystem</li>
+				</ul>
+			</section>
+			<section>
+				<h5>Hur dockererar man?</h5>
+			</section>
+			
+		</div>
+	</div>
+
+	<script src="lib/js/head.min.js"></script>
+	<script src="js/reveal.js"></script>
+
+	<script>
+		// More info https://github.com/hakimel/reveal.js#configuration
+		Reveal.initialize({
+			history: true,
+
+			// More info https://github.com/hakimel/reveal.js#dependencies
+			dependencies: [
+				{ src: 'plugin/markdown/marked.js' },
+				{ src: 'plugin/markdown/markdown.js' },
+				{ src: 'plugin/notes/notes.js', async: true },
+				{ src: 'plugin/highlight/highlight.js', async: true, callback: function () { hljs.initHighlightingOnLoad(); } }
+			]
+		});
+
+		Reveal.addEventListener('fragmentshown', function (event) {
+			event.fragment.style.display = 'block'
+		});
+	</script>
+</body>
+
+</html>
