@@ -8,7 +8,7 @@
 	<title>reveal.js</title>
 
 	<link rel="stylesheet" href="css/reveal.css">
-	<link rel="stylesheet" href="css/theme/white.css">
+	<link rel="stylesheet" href="css/theme/black.css">
 
 	<!-- Theme used for syntax highlighting of code -->
 	<link rel="stylesheet" href="lib/css/zenburn.css">
@@ -34,7 +34,7 @@
 				<h5>Vad är docker?</h5>
 				<ul>
 					<li>
-						Docker är en öppen platform för att utveckla, distribuera och exekvera applikationer.
+						Docker är en öppen plattform för att utveckla, distribuera och exekvera applikationer.
 					</li>
 					<li>
 						Med hjälp av docker kan vi packetera applikationer och dess beroenden i ett inkappslat och isolerat format
@@ -73,14 +73,109 @@
 				<ul>
 					<li class="fragment shrink">Köra godtycklig kod i egna fullt isolerade kontainrar, plattformsagnostiskt-ish</li>
 					<li class="fragment shrink">Kontainrar är lättviktiga, flyktiga och snabbt startade</li>
+					<li class="fragment shrink">Separation mellan applikation och infrastruktur</li>
 					<li class="fragment shrink">Skalbar, multidimensionell drifthockey(?)</li>
-					<li class="fragment shrink">Dra nytta av ett ständigt växande ekosystem</li>
+					<li class="fragment shrink">Utnyttja ett ständigt växande ekosystem genom komposition</li>
 				</ul>
 			</section>
 			<section>
 				<h5>Hur dockererar man?</h5>
 			</section>
-			
+			<section>
+				<h5>Docker Engine</h5>
+				<img src="./img/engine-components-flow.png" width="800" alt="">
+			</section>
+			<section>
+				<h5>Docker Hub</h5>
+				<img src="./img/kitematic.png" width="800" alt="">
+			</section>
+			<section>
+				<h5>docker run</h5>
+				<pre style="display:block;overflow: hidden; word-break: break-word; white-space: pre-wrap">
+					<code data-trim data-noescape >
+<mark> C:> docker run hello-world</mark>
+Unable to find image 'hello-world:latest' locally
+latest: Pulling from library/hello-world
+535020c3e8ad: Pull complete
+    </code>
+C:> Hello from Docker.
+This message shows that your installation appears to be working correctly.
+
+
+	</pre>
+
+
+			</section>
+			<section>
+				<h5>Vad hände?</h5>
+				<ul>
+					<li>Docker CLI kontaktar Daemon</li>
+					<li>Docker Daemon kontrollerar om avbilden "hello-world" finns lokalt</li>
+					<li>Daemon laddar hem avbilden från Docker Hub</li>
+					<li>Daemon skapar en ny container från avbilden och exekverar det som avbilden specificerar</li>
+					<li>Resultatet skickas från Daemon till CLI och visas upp</li>
+				</ul>
+			</section>
+			<section data-background-image="./img/lame.gif">
+				<h1>"coolt"</h1>
+			</section>
+			<section>
+				<h5>Vi lägger i en växel till</h5>
+				<pre>
+					<code data-trim data-noescape >
+C:> docker run <mark>-d -P</mark> harishj/catweb
+f5d7033fafb78816aa353ad257adcc51ac3c267781281c1557aa9abe3883b525
+C:> docker ps
+CONTAINER ID        IMAGE          PORTS                    		   
+f5d7033fafb7        harishj/catweb <mark>0.0.0.0:32768->5000/tcp</mark>
+</code>
+	</pre>
+			</section>
+			<section>
+				<h5>*Micdrop*</h5>
+				<img src="./img/catweb.png" width="800" alt="">
+			</section>
+
+			<section>
+				<h5>Docker kommandon</h5>
+				<pre>
+					<code data-trim data-noescape style="display:block;overflow: hidden; word-break: break-word; white-space: pre-wrap">
+docker ps - Visar startade containrar
+docker run [...args] "namn:tag" - startar en ny container med vald avbild
+docker stop "namn:tag/id" - Stoppar en container
+docker start - startar "namn:tag/id" - Startar en stoppad container
+docker rm "namn:tag" - Tar bort en container
+docker ps -a - Visar startade och stoppade containrar
+docker logs "container-id" - Visar loggar från containern
+docker inspect "container-id" - visar information om containern.
+docker port "container-id" - Visar portmapning för container 
+</code>
+	</pre>
+			</section>
+
+			<section>
+				<h5>Composition med Dockerfile</h5>
+				<pre>
+					<code data-trim data-noescape>
+FROM node:boron //Basavbild
+
+# Create app directory
+RUN mkdir -p /usr/src/app
+WORKDIR /usr/src/app
+
+# Install app dependencies
+COPY package.json /usr/src/app/
+RUN npm install
+
+# Bundle app source
+COPY . /usr/src/app
+
+EXPOSE 8080
+CMD [ "npm", "start" ]
+
+					</code>
+				</pre>
+			</section>
 		</div>
 	</div>
 
@@ -91,6 +186,8 @@
 		// More info https://github.com/hakimel/reveal.js#configuration
 		Reveal.initialize({
 			history: true,
+			width: 1024,
+			height: 720,
 
 			// More info https://github.com/hakimel/reveal.js#dependencies
 			dependencies: [
@@ -99,10 +196,6 @@
 				{ src: 'plugin/notes/notes.js', async: true },
 				{ src: 'plugin/highlight/highlight.js', async: true, callback: function () { hljs.initHighlightingOnLoad(); } }
 			]
-		});
-
-		Reveal.addEventListener('fragmentshown', function (event) {
-			event.fragment.style.display = 'block'
 		});
 	</script>
 </body>
